@@ -3,6 +3,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
+def getLinkSource(period):
+    return 'https://www.kaggle.com/datasets/unsdsn/world-happiness?select=%s.csv' % period
+
+
 st.set_page_config(layout='wide')
 
 # Cleansing Data
@@ -37,7 +41,8 @@ df2019 = df2019.rename(columns={'Country or region': 'country', 'Overall rank': 
 with st.sidebar:
     selectPeriod = st.select_slider(
         "Tahun", ["2015", "2016", "2017", "2018", "2019"])
-st.title("Korelasi antara tingkat kebebasan (Freedom to make life choice) di suatu negara dengan tingkat pendapatan serta kesejahteraan masyarakatnya pada tahun 2015-2019")
+st.title("Korelasi antara tingkat kebebasan (Freedom to make life choice) di suatu negara dengan tingkat pendapatan serta kesejahteraan masyarakatnya pada tahun 2015-2019".title())
+st.markdown('Kebebasan merupakan')
 
 if (selectPeriod == '2015'):
     df = df2015
@@ -60,8 +65,7 @@ plt.scatter(df['freedom'], df['happiness_score'])
 plt.xlabel("Freedom")
 plt.ylabel("Happiness Score")
 st.write(fig)
-st.info('Sumber: %s' %
-        'https://www.kaggle.com/datasets/unsdsn/world-happiness?select=2015.csv')
+st.info('Sumber: %s' % getLinkSource(selectPeriod))
 
 
 fig = plt.figure()
@@ -74,3 +78,18 @@ plt.ylabel("GDP")
 st.write(fig)
 st.info('Sumber: %s' %
         'https://www.kaggle.com/datasets/unsdsn/world-happiness?select=2015.csv')
+
+st.markdown('Dapat kita lihat contohnya pada 2019, negara paling bebas (Uzbekistan) dalam hal kesejahteraan rakyatnya berada di posisi ke-41')
+c1, c2 = st.columns(2)
+df2019freedom = df2019.sort_values(by='freedom', ascending=False)
+with c1:
+    st.header("10 Negara Paling Bebas Pada Tahun 2019")
+    st.table(df2019freedom.head(10)[['happiness_rank', 'country',
+             'freedom', 'happiness_score', 'economy_gdp']])
+    st.info('Sumber: %s' % getLinkSource(2019))
+
+with c2:
+    st.header("10 Negara Paling Tidak Bebas Pada Tahun 2019")
+    st.table(df2019freedom.tail(10)[['happiness_rank', 'country',
+             'freedom', 'happiness_score', 'economy_gdp']])
+    st.info('Sumber: %s' % getLinkSource(2019))
