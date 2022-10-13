@@ -41,7 +41,7 @@ df2019 = df2019.rename(columns={'Country or region': 'country', 'Overall rank': 
 with st.sidebar:
     selectPeriod = st.select_slider(
         "Tahun", ["2015", "2016", "2017", "2018", "2019"])
-st.title("Korelasi antara tingkat kebebasan (Freedom to make life choice) di suatu negara dengan tingkat pendapatan serta kesejahteraan masyarakatnya pada tahun 2015-2019".title())
+st.title("Korelasi antara tingkat kebebasan (Freedom Score) di suatu negara dengan tingkat pendapatan (GDP) serta kesejahteraan masyarakatnya (Happiness Score) pada tahun 2015-2019".title())
 st.markdown('Kebebasan telah menjadi komponen hidup yang sangat penting terutama bagi kebanyakan _milenial_ dan _gen z_. Namun apakah keinginan manusiawi untuk meraih kebebasan (_Freedom to make life choice_) tersebut memiliki dampak terhadap ekonomi serta kesejahteraan masyarakat secara umum dan selalu memiliki korelasi yang selaras?')
 
 st.markdown('Mari kita lihat dalam diagram berikut:')
