@@ -102,7 +102,7 @@ with c1:
 
 with c2:
     st.header("10 Negara Dengan Freedom Score Paling Rendah Pada Tahun 2019")
-    st.table(df2019freedom.head(10).assign(
+    st.table(df2019freedom.tail(10).assign(
         number=[i for i in range(1, 11)]).set_index('number'))
     st.info('Sumber: %s' % getLinkSource(2019))
 
