@@ -92,17 +92,18 @@ st.markdown(
 st.markdown('Untuk lebih jelasnya, kita dapat melihat tabel berikut:')
 
 c1, c2 = st.columns(2)
-df2019freedom = df2019.sort_values(by='freedom', ascending=False)
+df2019freedom = df2019.sort_values(by='freedom', ascending=False)[['happiness_rank', 'country',
+                                                                   'freedom', 'happiness_score', 'economy_gdp']]
 with c1:
     st.header("10 Negara Dengan Freedom Score Paling Tinggi Pada Tahun 2019")
-    st.table(df2019freedom.head(10)[['happiness_rank', 'country',
-             'freedom', 'happiness_score', 'economy_gdp']])
+    st.table(df2019freedom.head(10).assign(
+        number=[i for i in range(1, 11)]).set_index('number'))
     st.info('Sumber: %s' % getLinkSource(2019))
 
 with c2:
     st.header("10 Negara Dengan Freedom Score Paling Rendah Pada Tahun 2019")
-    st.table(df2019freedom.tail(10)[['happiness_rank', 'country',
-             'freedom', 'happiness_score', 'economy_gdp']])
+    st.table(df2019freedom.head(10).assign(
+        number=[i for i in range(1, 11)]).set_index('number'))
     st.info('Sumber: %s' % getLinkSource(2019))
 
 st.markdown('''Dapat kita lihat contohnya pada data tahun 2019 di atas, Uzbekistan merupakan negara dengan tingkat _freedom_ tertinggi namun dalam hal kesejahteraan rakyatnya berada di posisi ke-41. Mengapa hal tersebut dapat terjadi? Apakah berarti tidak ada korelasi antara kebebasan, kesejahteraan, serta ekonomi?  
