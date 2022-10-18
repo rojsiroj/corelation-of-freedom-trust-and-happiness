@@ -118,13 +118,17 @@ st.markdown('<p class="text-font text-center font-bold">Negara Berdasarkan <i>Fr
             unsafe_allow_html=True)
 st.image('images/freedom.png')
 
+st.markdown('<p class="text-font text-center font-bold">Negara Berdasarkan <i>GDP</i> (PDB) Pada Tahun 2019',
+            unsafe_allow_html=True)
+st.image('images/gdp.png')
+
 st.markdown('<p class="text-font text-center font-bold">Negara Berdasarkan <i>Happiness Score</i> Pada Tahun 2019',
             unsafe_allow_html=True)
 st.image('images/happiness.png')
 
-st.markdown('<p class="text-font text-center font-bold">Negara Berdasarkan <i>GDP</i> (PDB) Pada Tahun 2019',
+st.markdown('<p class="text-font text-center font-bold">Negara Berdasarkan <i>Happiness Rank</i> Pada Tahun 2019',
             unsafe_allow_html=True)
-st.image('images/gdp.png')
+st.image('images/happiness_rank.png')
 
 
 st.info('Sumber: %s' % getLinkSource(2019))
