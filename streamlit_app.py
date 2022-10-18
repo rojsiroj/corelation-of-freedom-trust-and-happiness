@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import pandas as pd
 import streamlit as st
 
@@ -108,24 +109,24 @@ st.markdown(
     Seperti mengutip dari <a href="https://nasional.kompas.com/read/2018/01/26/08294921/apakah-demokrasi-liberal-sungguh-menyejahterakan-masyarakat" target="_blank">kompas.com</a>, <b><i>Joseph Stiglitz</i></b> pada kuliah umum di Central Europe University, Budapest, Hungaria, awal November 2014 pernah berpendapat bahwa dengan membiarkan pasar bergerak dalam logika self regulating market (pasar bebas), maka pemerintah juga telah melebarkan kesempatan (<i>opportunity</i>) bagi kelompok-kelompok masyarakat kaya untuk terus memperkaya diri bahkan sampai mengeksploitasi kekayaan masyarakat menengah ke bawah.</p>''', unsafe_allow_html=True)
 
 st.markdown(
-    '<p class="text-font text-justify">Untuk lebih jelasnya, kita dapat melihat diagram berikut:</p>', unsafe_allow_html=True)
+    '<p class="text-font text-justify">Untuk lebih jelasnya, kita dapat melihat geoheatmap berikut:</p>', unsafe_allow_html=True)
 
 st.write('\n')
 st.write('\n')
-c1, c2 = st.columns(2)
-df2019freedom = df2019.sort_values(by='freedom', ascending=False)[['happiness_rank', 'country',
-                                                                   'freedom', 'happiness_score', 'economy_gdp']]
-with c1:
-    st.markdown('<p class="text-font text-center font-bold">10 Negara Dengan Freedom Score Paling Tinggi Pada Tahun 2019',
-                unsafe_allow_html=True)
-    st.table(df2019freedom.head(10).assign(
-        number=[i for i in range(1, 11)]).set_index('number'))
 
-with c2:
-    st.markdown('<p class="text-font text-center font-bold">10 Negara Dengan Freedom Score Paling Rendah Pada Tahun 2019',
-                unsafe_allow_html=True)
-    st.table(df2019freedom.tail(10).assign(
-        number=[i for i in range(1, 11)]).set_index('number'))
+st.markdown('<p class="text-font text-center font-bold">Negara Berdasarkan <i>Freedom Score</i> Pada Tahun 2019',
+            unsafe_allow_html=True)
+st.image('images/freedom.png')
+
+st.markdown('<p class="text-font text-center font-bold">Negara Berdasarkan <i>Happiness Score</i> Pada Tahun 2019',
+            unsafe_allow_html=True)
+st.image('images/happiness.png')
+
+st.markdown('<p class="text-font text-center font-bold">Negara Berdasarkan <i>GDP</i> (PDB) Pada Tahun 2019',
+            unsafe_allow_html=True)
+st.image('images/gdp.png')
+
+
 st.info('Sumber: %s' % getLinkSource(2019))
 
 
