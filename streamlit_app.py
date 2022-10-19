@@ -1,6 +1,7 @@
-import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
 import pandas as pd
+import plotly.express as px
 import streamlit as st
 
 
@@ -81,27 +82,39 @@ elif (selectPeriod == '2019'):
 else:
     df = df2019
 
-cf1, cf2 = st.columns(2)
+st.markdown('<p class="text-font font-bold text-center">Korelasi antara kebebasan dan kesejahteraan masyarakat pada %s</p>' %
+            selectPeriod, unsafe_allow_html=True)
+fig = px.scatter(df, x='freedom', y='happiness_score', color='happiness_score',
+                 size='happiness_score', hover_data=['freedom', 'happiness_score'], trendline='ols')
+st.plotly_chart(fig)
 
-with cf1:
-    fig = plt.figure()
-    ax = fig.add_subplot(1, 1, 1)
-    st.markdown('<p class="text-font font-bold text-center">Korelasi antara kebebasan dan kesejahteraan masyarakat pada %s</p>' %
-                selectPeriod, unsafe_allow_html=True)
-    plt.scatter(df['freedom'], df['happiness_score'])
-    plt.xlabel("Freedom")
-    plt.ylabel("Happiness Score")
-    st.write(fig)
 
-with cf2:
-    fig = plt.figure()
-    ax = fig.add_subplot(1, 1, 1)
-    st.markdown('<p class="text-font font-bold text-center">Korelasi antara kebebasan dengan GDP (PDB) pada %s</p>' %
-                selectPeriod, unsafe_allow_html=True)
-    plt.scatter(df['freedom'], df['economy_gdp'])
-    plt.xlabel("Freedom")
-    plt.ylabel("GDP")
-    st.write(fig)
+st.markdown('<p class="text-font font-bold text-center">Korelasi antara kebebasan dengan GDP (PDB) pada %s</p>' %
+            selectPeriod, unsafe_allow_html=True)
+fig = px.scatter(df, x='freedom', y='economy_gdp', color='economy_gdp',
+                 size='economy_gdp', hover_data=['freedom', 'economy_gdp'], trendline='ols')
+st.plotly_chart(fig)
+
+# with cf1:
+# fig = plt.figure()
+# ax = fig.add_subplot(1, 1, 1)
+# st.markdown('<p class="text-font font-bold text-center">Korelasi antara kebebasan dan kesejahteraan masyarakat pada %s</p>' %
+#             selectPeriod, unsafe_allow_html=True)
+# plt.scatter(df['freedom'], df['happiness_score'])
+# plt.xlabel("Freedom")
+# plt.ylabel("Happiness Score")
+# st.write(fig)
+
+
+# with cf2:
+#     fig = plt.figure()
+#     ax = fig.add_subplot(1, 1, 1)
+#     st.markdown('<p class="text-font font-bold text-center">Korelasi antara kebebasan dengan GDP (PDB) pada %s</p>' %
+#                 selectPeriod, unsafe_allow_html=True)
+#     plt.scatter(df['freedom'], df['economy_gdp'])
+#     plt.xlabel("Freedom")
+#     plt.ylabel("GDP")
+#     st.write(fig)
 st.info('Sumber: %s' % getLinkSource(selectPeriod))
 
 
