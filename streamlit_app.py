@@ -1,7 +1,6 @@
-import matplotlib.image as mpimg
-import matplotlib.pyplot as plt
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import streamlit as st
 
 
@@ -59,10 +58,16 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+selectTypeSum = ('Happiness', 'GDP')
+
 # Streamlit
 with st.sidebar:
     selectPeriod = st.select_slider(
         "Tahun", ["2015", "2016", "2017", "2018", "2019"])
+    spaces(2)
+    selectTypeSummary = st.radio(
+        'Pembanding untuk Summary', selectTypeSum)
+
 st.title("Korelasi antara tingkat kebebasan dengan tingkat kesejahteraan dan Ekonomi masyarakat".title())
 st.markdown('<p class="text-font text-justify">Kebebasan telah menjadi komponen hidup yang sangat penting terutama bagi kebanyakan <i>milenial</i> dan <i>gen z</i>. Namun apakah keinginan manusiawi untuk meraih kebebasan (<i>Freedom to make life choice</i>) tersebut memiliki dampak terhadap ekonomi serta kesejahteraan masyarakat secara umum dan selalu memiliki korelasi yang selaras?</p>', unsafe_allow_html=True)
 
@@ -84,37 +89,17 @@ else:
 
 st.markdown('<p class="text-font font-bold text-center">Korelasi antara kebebasan dan kesejahteraan masyarakat pada %s</p>' %
             selectPeriod, unsafe_allow_html=True)
-fig = px.scatter(df, x='freedom', y='happiness_score', color='happiness_score',
-                 size='happiness_score', hover_data=['freedom', 'happiness_score'], trendline='ols')
-st.plotly_chart(fig)
+figHappiness = px.scatter(df, x='freedom', y='happiness_score', color='happiness_score',
+                          size='happiness_score', hover_data=['freedom', 'happiness_score'], trendline='ols')
+st.plotly_chart(figHappiness)
 
 
 st.markdown('<p class="text-font font-bold text-center">Korelasi antara kebebasan dengan GDP (PDB) pada %s</p>' %
             selectPeriod, unsafe_allow_html=True)
-fig = px.scatter(df, x='freedom', y='economy_gdp', color='economy_gdp',
-                 size='economy_gdp', hover_data=['freedom', 'economy_gdp'], trendline='ols')
-st.plotly_chart(fig)
+figGDP = px.scatter(df, x='freedom', y='economy_gdp', color='economy_gdp',
+                    size='economy_gdp', hover_data=['freedom', 'economy_gdp'], trendline='ols')
+st.plotly_chart(figGDP)
 
-# with cf1:
-# fig = plt.figure()
-# ax = fig.add_subplot(1, 1, 1)
-# st.markdown('<p class="text-font font-bold text-center">Korelasi antara kebebasan dan kesejahteraan masyarakat pada %s</p>' %
-#             selectPeriod, unsafe_allow_html=True)
-# plt.scatter(df['freedom'], df['happiness_score'])
-# plt.xlabel("Freedom")
-# plt.ylabel("Happiness Score")
-# st.write(fig)
-
-
-# with cf2:
-#     fig = plt.figure()
-#     ax = fig.add_subplot(1, 1, 1)
-#     st.markdown('<p class="text-font font-bold text-center">Korelasi antara kebebasan dengan GDP (PDB) pada %s</p>' %
-#                 selectPeriod, unsafe_allow_html=True)
-#     plt.scatter(df['freedom'], df['economy_gdp'])
-#     plt.xlabel("Freedom")
-#     plt.ylabel("GDP")
-#     st.write(fig)
 st.info('Sumber: %s' % getLinkSource(selectPeriod))
 
 
@@ -148,6 +133,26 @@ st.markdown('<p class="text-font text-center font-bold">Negara Berdasarkan <i>Ha
             unsafe_allow_html=True)
 st.image('images/happiness_rank.png')
 
+
+# 2019
+dfsummary = df2019.sort_values(by=['freedom'], ascending=False)
+dffirst = dfsummary.head(10)
+dflast = dfsummary.tail(10)
+
+if selectTypeSummary in selectTypeSum:
+    st.markdown(
+        '<p class="text-font text-justify">Atau jika kurang dapat dimengerti, dapat dilihat pada summary berikut:</p>', unsafe_allow_html=True)
+
+    spaces(3)
+    st.markdown('<p class="text-font text-center font-bold">10 Negara Dengan <i>Freedom Rank</i> Tertinggi Pada 2019',
+                unsafe_allow_html=True)
+    if selectTypeSummary == 'Happiness':
+        fig = px.bar(dffirst, x="freedom", y="happiness_score",
+                     color="happiness_rank", hover_data=['country', 'freedom', 'happiness_score', 'happiness_rank', 'economy_gdp'])
+    elif selectTypeSummary == 'GDP':
+        fig = px.bar(dffirst, x="freedom", y="economy_gdp",
+                     color="economy_gdp", hover_data=['country', 'freedom', 'happiness_score', 'happiness_rank', 'economy_gdp'])
+    st.plotly_chart(fig)
 
 st.info('Sumber: %s' % getLinkSource(2019))
 
